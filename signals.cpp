@@ -10,7 +10,7 @@ extern int cur_fg_jid;
 
 void sig_handler(int sig_number){
 	if(sig_number==SIGINT){
-		cout << "smash: caught ctrl-C" << endl;
+		std::cout << "smash: caught ctrl-C" << std::endl;
 		if (fg_empty()){	//checking if there is a job on fg
 			if (!kill(cur_fg_pid, SIGKILL)) {
 				std::cout << "smash: process " << cur_fg_pid << " was killed" << std::endl;
