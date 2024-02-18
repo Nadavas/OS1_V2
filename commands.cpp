@@ -80,7 +80,7 @@ void fg_clean() {
 	cur_fg_jid = -1;
 }
 
-void fg_replace(pid_t pidx, std::string cmdx, int jidx = -1) {
+void fg_replace(pid_t pidx, std::string cmdx, int jidx) {
 	cur_fg_pid = pidx;
 	cur_fg_cmd = cmdx;
 	cur_fg_jid = jidx;
@@ -156,7 +156,7 @@ int break_cmd_to_args(std::string input, std::string(&args)[MAXARGS], std::strin
 // Parameters: pointer to jobs, command string
 // Returns: 0 - success,1 - failure
 //********************************************************
-void ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
+int ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
 {	
 	bool illegal_cmd = false; // illegal command
 /*************************************************/
