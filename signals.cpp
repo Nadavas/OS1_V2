@@ -27,7 +27,7 @@ void sig_handler(int sig_number){
 
 	}
 	}
-	else if (sig_number==SIGSTP){
+	else if (sig_number==SIGTSTP){
 			std::cout << "smash: caught ctrl-Z" << std::endl;
 	if (fg_empty()) {
 		if (insert_job(cur_fg_pid, cur_fg_cmd, true,cur_fg_jid)) {
