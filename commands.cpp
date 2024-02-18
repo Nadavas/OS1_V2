@@ -507,8 +507,8 @@ int ExeExternal(std::string args[MAXARGS], int args_count, std::string command)
 
 		default:
                 	// Parent process - meaning the external cmd was sent to be executed
-					fg_clear();
-					fg_insert(pID, command);
+					fg_clean();
+					fg_replace(pID, command);
 					// wait for the command to finish in foreground
 					if (waitpid(pID, NULL, WUNTRACED) == -1) {
 						std::perror("smash error: waitpid failed");
@@ -533,7 +533,7 @@ int BgCmd(std::string args[MAXARGS], int args_count, std::string command)
 	switch(pID = fork()){
 			case -1:
 					std::perror("smash error: fork failed");
-					return FAILED;
+					return -1;
 
 			case 0 :
 					// Child Process
@@ -548,7 +548,7 @@ int BgCmd(std::string args[MAXARGS], int args_count, std::string command)
 
 			default:
 					// Parent process - meaning the external cmd was sent to be executed
-					if (!addNewJob(pID, command)) {
+					if (!insert_job(pID, command)) {
 						return -1;
 					}
 					return 0;
@@ -580,8 +580,8 @@ bool is_number(std::string& str)
 //********************************************
 int search_job(std::string& arg){
 	int num = std::stoi(arg);
-	if (mp.find(num) == mp.end())
-		return FAILED;
+	if (jobs_list.find(num) == jobs_list.end())
+		return -1;
 	return num;
 }
 
@@ -599,7 +599,7 @@ bool insert_job(pid_t pID, std::string cmd, bool is_stopped, int job_id) {
 		return false;
 	}
 	job newjob(pID, cmd, is_stopped, curr_time);
-	int final_job_id = last_job + 1;
+	int final_job_id = last_job_id + 1;
 	if (job_id != -1) {
 		final_job_id = job_id;
 	}
