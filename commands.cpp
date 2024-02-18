@@ -2,7 +2,7 @@
 //********************************************
 #include "commands.h"
 #include "signals.h"
-
+#include <fcntl.h>
 //global vars
 char* prev_path = NULL;
 char* cur_path = NULL;
@@ -217,7 +217,7 @@ int ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
 			char* temp = get_current_dir_name();
 			if (temp == NULL) {
 				perror("smash error: getcwd failed");
-				return FAILED;
+				return -1;
 			}
 			else { 
 				// print the pwd
@@ -259,7 +259,7 @@ int ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
 					illegal_cmd = true;
 				}
 				else {
-					if (kill(mp[job_id_int].pid , signum_int)){
+					if (kill(jobs_list[job_id_int].pid , signum_int)){
 						std::perror("smash error: kill failed");
 						illegal_cmd = true;
 					}
