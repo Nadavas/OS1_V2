@@ -36,9 +36,9 @@ public:
 };
 //int ExeComp(char* lineSize);
 void update_jobs_list();
-void BgCmd(std::string args[MAXARGS], int args_count, std::string command);
-void ExeCmd(std::string args[MAXARGS], int args_count, std::string command);
-void ExeExternal(std::string args[MAXARGS], int args_count, std::string command);
+int BgCmd(std::string args[MAXARGS], int args_count, std::string command);
+int ExeCmd(std::string args[MAXARGS], int args_count, std::string command);
+int ExeExternal(std::string args[MAXARGS], int args_count, std::string command);
 bool check_if_built_in_cmd(std::string command);
 bool fg_empty();
 void fg_clean();
