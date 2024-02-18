@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	 /* add your code here */
 	struct sigaction sa = { 0 };
 	sa.sa_handler = sig_handler;
-	sa.sa_flags = 0;
+	sa.sa_flags = SA_RESTART;
 	/************************************/
 	//NOTE: the signal handlers and the function/s that sets the handler should be found in siganls.c
 	//set your signal handlers here
