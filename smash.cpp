@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	if (sigaction(SIGINT, &sa, NULL) == -1) {
 		perror("smash error: sigaction failed");
 	}
-	if(sigaction(SIGTSTOP, &sa, NULL) == -1){
+	if(sigaction(SIGTSTP, &sa, NULL) == -1){
 		perror("smash error: sigaction failed");
 	}
 	/************************************/
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 		char* temp = get_current_dir_name();
 		if (temp == NULL) {
 			perror("smash error: getcwd failed");
-			return FAILED;
+			return -1;
 		}
 		cur_path = temp;	// set cur_path to the cwd
 	}
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 		std::string input,command;
 		std::getline (std::cin,input);
 		command = input;		// save input so we can manipulate it
-		std::string args[MAX_ARG];
+		std::string args[MAXARGS];
 		int args_count = break_cmd_to_args(input, args);	// args - array of cmd arguments	
 		if (check_if_built_in_cmd(args[0])) {
 			// in case of built in command
