@@ -29,17 +29,17 @@ void sig_handler(int sig_number){
 	else if (sig_number==SIGSTOP){
 			std::cout << "smash: caught ctrl-Z" << std::endl;
 	if (fg_empty()) {
-		if ((fg_pid, fg_cmd, Stopped,fg_job_id)) {
-			if (!kill(fg_pid, SIGSTOP)) {
-				std::cout << "smash: process " << fg_pid << " was stopped" << std::endl;
-				fg_clear();
+		if (insert_job(cur_fg_pid, cur_fg_cmd, true,cur_fg_jid)) {
+			if (!kill(cur_fg_pid, SIGSTP)) {
+				std::cout << "smash: process " << cur_fg_pid << " was stopped" << std::endl;
+				fg_clean();
 			}
 			else {
 				std::perror("smash error: kill failed");
 			}
 		}
 		else {
-			std::cerr << "smash error: addNewJob failed\n";
+			std::cerr << "smash error: insert_job failed\n";
 		}
 	}
 	else {
