@@ -4,6 +4,7 @@
 
 /*******************************************/
 #include "signals.h"
+#include <csignal>
 extern pid_t cur_fg_pid; // holds the process id of the fg process
 extern std::string cur_fg_cmd;	 // holds the process cmd of the fg process
 extern int cur_fg_jid;
