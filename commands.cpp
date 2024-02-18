@@ -264,7 +264,7 @@ int ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
 						illegal_cmd = true;
 					}
 					// Signal successfully sent
-					std::cout << "signal number "<< signum_int<< " was sent to pid "<<mp[job_id_int].pid << std::endl;
+					std::cout << "signal number "<< signum_int<< " was sent to pid "<<jobs_list[job_id_int].pid << std::endl;
 				}
 			}
 		}
@@ -416,7 +416,7 @@ int ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
 			else {
 				job_id = std::stoi(args[1]); // entered job
 			}
-			if (mp[job_id].is_stopped == false){
+			if (jobs_list[job_id].is_stopped == false){
 				// this job is already running - error
 				std::cerr << "smash error: bg: job-id " << job_id << " is already running in the background" << std::endl;
 			}
@@ -453,7 +453,7 @@ int ExeCmd(std::string args[MAXARGS], int args_count, std::string command)
    				if ( child_pid == -1) {
    					// waitpid error
    					std::perror("smash error: waitpid failed");
-   					return FAILED;
+   					return -1;
    				}
    				if( child_pid != it->second.pid){
    					// the process wasn't killed yet - send SIGKILL
