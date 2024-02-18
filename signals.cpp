@@ -11,7 +11,7 @@ extern int cur_fg_jid;
 void sig_handler(int sig_number){
 	if(sig_number==SIGINT){
 		std::cout << "smash: caught ctrl-C" << std::endl;
-	if (fg_empty()()) {
+	if (fg_empty()) {
 		if (!kill(cur_fg_pid, SIGKILL)) {
 			std::cout << "smash: process " << cur_fg_pid << " was killed" << std::endl;
 			fg_clean();
@@ -30,7 +30,7 @@ void sig_handler(int sig_number){
 			std::cout << "smash: caught ctrl-Z" << std::endl;
 	if (fg_empty()) {
 		if (insert_job(cur_fg_pid, cur_fg_cmd, true,cur_fg_jid)) {
-			if (!kill(cur_fg_pid, SIGSTP)) {
+			if (!kill(cur_fg_pid, SIGSTOP)) {
 				std::cout << "smash: process " << cur_fg_pid << " was stopped" << std::endl;
 				fg_clean();
 			}
@@ -46,5 +46,5 @@ void sig_handler(int sig_number){
 		printf("smash > ");
 		fflush(stdout);
 	}
-
+	}
 }	
